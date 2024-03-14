@@ -5,7 +5,7 @@ export type Dog = {
   breed: string;
   img: string;
   present: boolean;
-  age: 6;
+  age: number;
   chipNumber: string;
   owner: string;
   phoneNumber: string;

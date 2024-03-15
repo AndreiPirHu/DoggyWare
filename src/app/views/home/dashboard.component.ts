@@ -11,12 +11,18 @@ import { Dog } from '../../dog/dog.model';
 })
 export class DashboardComponent implements OnInit {
   dogs: Dog[] = [];
+  dogsPresent: number = 0;
   constructor(private stateService: StateService) {}
 
   ngOnInit(): void {
-    //set the data in the dogs variable
+    //set variables to subscribe to data from dogs state
     this.stateService.dogs$.subscribe((dogs: Dog[]) => {
       this.dogs = dogs;
+      this.dogsPresent = this.dogsCurrentlyPresent;
     });
+  }
+
+  get dogsCurrentlyPresent() {
+    return this.dogs.filter((dog) => dog.present == true).length;
   }
 }

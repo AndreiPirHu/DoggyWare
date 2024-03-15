@@ -1,0 +1,24 @@
+<div class="fixed top-0 w-full shadow-sm bg-white grid">
+  <div class="relative flex ml-5 h-20 items-center">
+    <input
+      type="text"
+      class="w-[400px] p-3 pl-8"
+      placeholder="Search"
+      [(ngModel)]="searchInput"
+      (ngModelChange)="dogSearch()"
+      (blur)="clearSearch()"
+      (focus)="dogSearch()"
+    />
+    <img
+      src="assets/icons/search-icon.svg"
+      alt="Magnifying glass icon"
+      class="h-5 pl-3 absolute top-7 -left-2"
+    />
+  </div>
+
+  <div class="bg-white max-h-[600px] overflow-auto">
+    <div *ngFor="let dog of searchResults">
+      {{ dog.name }}
+    </div>
+  </div>
+</div>

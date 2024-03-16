@@ -1,24 +1,60 @@
-<div class="fixed top-0 w-full shadow-sm bg-white grid">
+<div class="fixed top-0 w-full shadow-sm bg-white grid z-50">
   <div class="relative flex ml-5 h-20 items-center">
     <input
       type="text"
-      class="w-[400px] p-3 pl-8"
+      class="w-[400px] p-3 pl-8 bg-gray-50"
       placeholder="Search"
       [(ngModel)]="searchInput"
       (ngModelChange)="dogSearch()"
-      (blur)="clearSearch()"
       (focus)="dogSearch()"
+      (blur)="clearSearch()"
     />
     <img
       src="assets/icons/search-icon.svg"
       alt="Magnifying glass icon"
       class="h-5 pl-3 absolute top-7 -left-2"
     />
-  </div>
 
-  <div class="bg-white max-h-[600px] overflow-auto">
-    <div *ngFor="let dog of searchResults">
-      {{ dog.name }}
+    <div
+      id="results-container"
+      [class]="
+        'bg-white max-h-[600px] w-full max-w-[400px] overflow-auto absolute top-16 border' +
+        (searchResults.length ? '' : 'hidden')
+      "
+    >
+      <div
+        id="dog-card"
+        *ngFor="let dog of searchResults"
+        class="flex px-3 border-b py-1 cursor-pointer hover:bg-slate-200"
+      >
+        <div
+          class="flex items-center justify-between w-full"
+          (click)="resultClick(dog.name, dog.chipNumber)"
+        >
+          <div class="flex items-center">
+            <img
+              src="assets/icons/dog-icon.svg"
+              alt="icon of a corgi face"
+              class="h-10"
+            />
+            <div class="pl-3">
+              <div class="flex items-center">
+                <h2>{{ dog.name }}</h2>
+                <span
+                  [class]="
+                    ' block size-3 rounded-full ml-2 ' +
+                    (dog.present ? 'bg-green-500 ' : ' bg-red-500 ')
+                  "
+                ></span>
+              </div>
+
+              <h2 class="text-gray-400">{{ dog.breed }}</h2>
+            </div>
+          </div>
+
+          <h2 class="">{{ dog.age }} years old</h2>
+        </div>
+      </div>
     </div>
   </div>
 </div>

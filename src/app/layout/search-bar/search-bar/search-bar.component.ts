@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Dog } from '../../../dog/dog.model';
 import { StateService } from '../../../state/state.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -16,7 +17,7 @@ export class SearchBarComponent implements OnInit {
   searchInput: string = '';
   searchResults: Dog[] = [];
 
-  constructor(private stateService: StateService) {}
+  constructor(private stateService: StateService, private router: Router) {}
 
   ngOnInit(): void {
     this.stateService.dogs$.subscribe((dogs: Dog[]) => {
@@ -26,6 +27,7 @@ export class SearchBarComponent implements OnInit {
 
   dogSearch = () => {
     if (this.searchInput.length < 3) {
+      this.searchResults = [];
       return;
     }
     this.searchResults = this.dogs.filter((dog) => {
@@ -37,6 +39,15 @@ export class SearchBarComponent implements OnInit {
   };
 
   clearSearch = () => {
-    this.searchResults = [];
+    //timeout so blur clear effect is not instant when trying to navigate
+    setTimeout(() => {
+      this.searchResults = [];
+    }, 200);
+  };
+
+  resultClick = (dogName: string, dogChip: string) => {
+    let dogID: string = dogName + dogChip.slice(0, 2);
+    console.log(dogID);
+    this.router.navigate(['/' + dogID]);
   };
 }

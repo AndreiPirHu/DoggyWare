@@ -1,0 +1,61 @@
+<div class="grid grid-cols-6 p-5 gap-4 text-gray-700">
+  <h1 class="text-2xl font-normal col-span-full">Attendance</h1>
+  <!-- Overview-->
+  <div class="col-span-2 bg-white rounded-md shadow-sm p-4">
+    <h2 class="text-xl font-medium pb-2">In</h2>
+    <h3 class="text-5xl font-bold text-green-500">{{ dogsIn }}</h3>
+  </div>
+  <div class="col-span-2 bg-white rounded-md shadow-sm p-4">
+    <h2 class="text-xl font-medium pb-2">Out</h2>
+    <h3 class="text-5xl font-bold text-red-500">{{ dogsOut }}</h3>
+  </div>
+  <div class="col-span-2 bg-white rounded-md shadow-sm p-4">
+    <h2 class="text-xl font-medium pb-2">Total</h2>
+    <h3 class="text-5xl font-bold">{{ dogs.length }}</h3>
+  </div>
+  <!-- Check in list-->
+  <div class="col-span-full bg-white rounded-md shadow-sm">
+    <h2 class="text-xl font-medium p-4 border-b">Check in/out</h2>
+    <div class="p-4">
+      <ul>
+        <!--Dog Card-->
+        <li
+          id="dog-card"
+          *ngFor="let dog of dogs"
+          [class]="
+            'flex border-b hover:opacity-75 text-white ' +
+            (dog.present ? 'bg-green-500' : 'bg-red-500')
+          "
+        >
+          <div
+            class="flex items-center justify-between w-full px-3 py-1 cursor-pointer"
+            (click)="handleAttendanceToggle(dog.chipNumber)"
+          >
+            <div class="flex items-center">
+              <img
+                src="assets/icons/dog-icon.svg"
+                alt="icon of a corgi face"
+                class="h-10"
+              />
+              <div class="pl-3">
+                <div class="flex items-center">
+                  <h2>{{ dog.name }}</h2>
+                  <span
+                    [class]="
+                      ' block size-3 rounded-full ml-2 ' +
+                      (dog.present ? 'bg-green-500 ' : ' bg-red-500 ')
+                    "
+                  ></span>
+                </div>
+
+                <h2 class="">{{ dog.breed }}</h2>
+              </div>
+            </div>
+
+            <h2 class="">{{ dog.age }} years old</h2>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

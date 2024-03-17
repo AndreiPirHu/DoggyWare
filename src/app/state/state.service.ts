@@ -16,4 +16,16 @@ export class StateService {
   setDogs(dogs: Dog[]) {
     this._dogs.next(dogs);
   }
+
+  changePresence(chipNumber: string) {
+    let updatedDogs = this._dogs.value;
+    let dogIndex = updatedDogs.findIndex((dog) => dog.chipNumber == chipNumber);
+    if (dogIndex !== -1) {
+      //updates the new dog array
+      updatedDogs[dogIndex].present = !updatedDogs[dogIndex].present;
+
+      //updates dogs with the new array
+      this._dogs.next(updatedDogs);
+    }
+  }
 }

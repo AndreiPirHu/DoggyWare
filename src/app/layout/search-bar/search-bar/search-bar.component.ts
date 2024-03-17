@@ -45,7 +45,7 @@ export class SearchBarComponent implements OnInit {
     }, 200);
   };
 
-  resultClick = (dogName: string, dogChip: string) => {
+  handleResultClick = (dogName: string, dogChip: string) => {
     let dogID: string = dogName + dogChip.slice(0, 2);
     console.log(dogID);
     this.router.navigate(['/' + dogID]);

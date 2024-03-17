@@ -22,6 +22,7 @@
         (searchResults.length ? '' : 'hidden')
       "
     >
+      <!--Dog Card-->
       <div
         id="dog-card"
         *ngFor="let dog of searchResults"
@@ -29,7 +30,7 @@
       >
         <div
           class="flex items-center justify-between w-full"
-          (click)="resultClick(dog.name, dog.chipNumber)"
+          (click)="handleResultClick(dog.name, dog.chipNumber)"
         >
           <div class="flex items-center">
             <img

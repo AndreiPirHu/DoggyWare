@@ -1,4 +1,8 @@
 {
+  "employees": [
+    { "name": "Andrei", "phoeNumber": "0762234354" },
+    { "name": "Lukas", "phoeNumber": "0768357384" }
+  ],
   "dogs": [
     {
       "id": "IEH455006",

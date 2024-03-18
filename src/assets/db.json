@@ -1,7 +1,10 @@
 {
   "employees": [
     { "name": "Andrei", "phoeNumber": "0762234354" },
-    { "name": "Lukas", "phoeNumber": "0768357384" }
+    { "name": "Lukas", "phoeNumber": "0768357384" },
+    { "name": "Simon", "phoeNumber": "0768357384" },
+    { "name": "Oscar", "phoeNumber": "0768357384" },
+    { "name": "Calle", "phoeNumber": "0768357384" }
   ],
   "dogs": [
     {

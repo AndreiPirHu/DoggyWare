@@ -1,0 +1,97 @@
+<div
+  class="fixed w-[70vw] h-screen flex items-center justify-center z-50 max-md:w-[100vw]"
+>
+  <div
+    class="bg-white shadow-lg rounded-md mb-[30%] border w-[500px] max-sm:w-[350px]"
+  >
+    <!--Title-->
+    <h1 class="text-xl font-semibold px-5 py-3 border-b">
+      {{ dogToConfirm.present ? "Check Out " : "Check In  " }}
+    </h1>
+    <!--Content-->
+    <div class="p-5">
+      <div class="flex">
+        <h2>
+          You are currently checking {{ dogToConfirm.present ? "out " : "in " }}
+        </h2>
+        <h2 class="font-bold pl-1">{{ dogToConfirm.name }}</h2>
+      </div>
+
+      <h2
+        *ngIf="assignedEmployees.length == 0"
+        class="font-medium my-4 underline underline-offset-2"
+      >
+        Please assign an employee
+      </h2>
+      <!--Assigned list-->
+      <h3 class="mt-5 text-xl font-bold">Assigned:</h3>
+      <ul>
+        <li *ngFor="let employee of assignedEmployees">
+          <div
+            class="flex items-center justify-between w-full px-3 py-1 cursor-pointer border-b hover:bg-slate-200"
+            (click)="handleUnassignEmployee()"
+          >
+            <div class="flex items-center">
+              <img
+                src="assets/icons/dog-icon.svg"
+                alt="icon of a corgi face"
+                class="h-10"
+              />
+              <div class="pl-3">
+                <div class="flex items-center">
+                  <h2>{{ employee.name }}</h2>
+                </div>
+
+                <h2 class="">{{ employee.phoneNumber }}</h2>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!--Unassigned list-->
+      </ul>
+      <h3 class="mt-5 text-xl font-bold">Unassigned:</h3>
+      <ul class="max-h-[200px] overflow-auto">
+        <li *ngFor="let employee of unassignedEmployees">
+          <div
+            class="flex items-center justify-between w-full px-3 py-1 cursor-pointer border-b hover:bg-slate-200"
+            (click)="handleAssignEmployee(employee)"
+          >
+            <div class="flex items-center">
+              <img
+                src="assets/icons/dog-icon.svg"
+                alt="icon of a corgi face"
+                class="h-10"
+              />
+              <div class="pl-3">
+                <div class="flex items-center">
+                  <h2>{{ employee.name }}</h2>
+                </div>
+
+                <h2 class="">{{ employee.phoneNumber }}</h2>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="flex justify-between mt-4">
+        <button
+          (click)="handleConfirmationModalDeactivation()"
+          class="bg-white rounded-md p-2 border border-gray-500 hover:bg-black hover:text-white"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="handleConfirmationModalSign()"
+          [disabled]="assignedEmployees.length == 0"
+          [class]="
+            'rounded-md p-2 text-white hover:opacity-75 disabled:bg-gray-500 ' +
+            (dogToConfirm.present ? 'bg-red-500 ' : 'bg-green-500 ')
+          "
+        >
+          {{ dogToConfirm.present ? "Check Out" : "Check In" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

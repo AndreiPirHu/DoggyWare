@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StateService } from '../../state/state.service';
-import { Dog } from '../../dog/dog.model';
+import { Dog } from '../../data/dog.model';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,20 +1,27 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Dog } from '../dog/dog.model';
+import { Dog } from '../data/dog.model';
+import { Employee } from '../data/employee.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StateService {
   private _dogs = new BehaviorSubject<Dog[]>([]);
-
+  private _employees = new BehaviorSubject<Employee[]>([]);
   // a getter that other components can subscribe to for updates to dogs
   get dogs$() {
     return this._dogs.asObservable();
   }
+  get employees$() {
+    return this._employees.asObservable();
+  }
 
   setDogs(dogs: Dog[]) {
     this._dogs.next(dogs);
+  }
+  setEmployees(employees: Employee[]) {
+    this._employees.next(employees);
   }
 
   changePresence(chipNumber: string) {

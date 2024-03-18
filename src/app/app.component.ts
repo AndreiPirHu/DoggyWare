@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SideMenuComponent } from './layout/side-menu/side-menu.component';
-import { SearchBarComponent } from './layout/search-bar/search-bar/search-bar.component';
+import { SearchBarComponent } from './layout/search-bar/search-bar.component';
 @Component({
   selector: 'app-root',
   standalone: true,

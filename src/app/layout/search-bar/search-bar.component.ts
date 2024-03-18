@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Dog } from '../../../dog/dog.model';
-import { StateService } from '../../../state/state.service';
+import { Dog } from '../../data/dog.model';
+import { StateService } from '../../state/state.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 

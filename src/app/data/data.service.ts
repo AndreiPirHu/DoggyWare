@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class DogService {
+export class DataService {
   constructor(private http: HttpClient) {}
 
-  getDogs = () => {
+  getData = () => {
     return this.http.get('assets/db.json');
   };
 }

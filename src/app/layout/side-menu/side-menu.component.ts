@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DogService } from '../../dog/dog.service';
-import { Dog } from '../../dog/dog.model';
+import { DataService } from '../../data/data.service';
+import { Dog } from '../../data/dog.model';
 import { StateService } from '../../state/state.service';
 import { RouterModule } from '@angular/router';
 
@@ -15,15 +15,16 @@ export class SideMenuComponent implements OnInit {
   dogs: Dog[] = [];
 
   constructor(
-    private dogService: DogService,
+    private dataService: DataService,
     private stateService: StateService
   ) {}
   //sidemenu fetches the data when it appears
   ngOnInit(): void {
     //get the data from the database
-    this.dogService.getDogs().subscribe((data: any) => {
+    this.dataService.getData().subscribe((data: any) => {
       //save the data as a state
       this.stateService.setDogs(data.dogs);
+      this.stateService.setEmployees(data.employees);
     });
   }
 }

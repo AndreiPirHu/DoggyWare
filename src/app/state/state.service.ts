@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Dog } from '../data/dog.model';
 import { Employee } from '../data/employee.model';
+import { DataService } from '../data/data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,8 @@ import { Employee } from '../data/employee.model';
 export class StateService {
   private _dogs = new BehaviorSubject<Dog[]>([]);
   private _employees = new BehaviorSubject<Employee[]>([]);
+
+  constructor(private dataService: DataService) {}
   // a getter that other components can subscribe to for updates to dogs
   get dogs$() {
     return this._dogs.asObservable();
@@ -27,12 +30,17 @@ export class StateService {
   changePresence(chipNumber: string) {
     let updatedDogs = this._dogs.value;
     let dogIndex = updatedDogs.findIndex((dog) => dog.chipNumber == chipNumber);
+
+    //checks if dog was found
     if (dogIndex !== -1) {
       //updates the new dog array
       updatedDogs[dogIndex].present = !updatedDogs[dogIndex].present;
 
       //updates dogs with the new array
       this._dogs.next(updatedDogs);
+
+      //update firebase
+      this.dataService.changeFirebaseDogInfo(updatedDogs[dogIndex]);
     }
   }
 }

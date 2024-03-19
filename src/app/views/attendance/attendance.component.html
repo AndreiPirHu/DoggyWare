@@ -5,8 +5,7 @@
     [handleConfirmationModalDeactivation]="handleConfirmationModalDeactivation"
     [handleConfirmationModalSign]="handleConfirmationModalSign"
     [class]="
-      'transition-all duration-100 ' +
-      (confirmationActive ? 'opacity-100 ' : 'opacity-0  pointer-events-none')
+      confirmationActive ? 'opacity-100 ' : 'opacity-0  pointer-events-none'
     "
   />
   <!--Container-->

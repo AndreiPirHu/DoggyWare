@@ -34,7 +34,6 @@ export class ConfirmationModalComponent implements OnInit {
   ngOnInit(): void {
     this.stateService.employees$.subscribe((employees: Employee[]) => {
       this.unassignedEmployees = employees;
-      console.log(this.unassignedEmployees);
     });
   }
 

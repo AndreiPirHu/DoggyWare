@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { StateService } from '../../state/state.service';
 import { Dog } from '../../data/dog.model';
 
@@ -12,6 +12,7 @@ import { Dog } from '../../data/dog.model';
 export class DashboardComponent implements OnInit {
   dogs: Dog[] = [];
   dogsPresent: number = 0;
+
   constructor(private stateService: StateService) {}
 
   ngOnInit(): void {

@@ -1,10 +1,10 @@
 {
   "employees": [
-    { "name": "Andrei", "phoeNumber": "0762234354" },
-    { "name": "Lukas", "phoeNumber": "0768357384" },
-    { "name": "Simon", "phoeNumber": "0768357384" },
-    { "name": "Oscar", "phoeNumber": "0768357384" },
-    { "name": "Calle", "phoeNumber": "0768357384" }
+    { "name": "Andrei", "phoneNumber": "0762234354" },
+    { "name": "Lukas", "phoneNumber": "0768357384" },
+    { "name": "Simon", "phoneNumber": "0768357384" },
+    { "name": "Oscar", "phoneNumber": "0768357384" },
+    { "name": "Calle", "phoneNumber": "0768357384" }
   ],
   "dogs": [
     {
@@ -944,7 +944,7 @@
       "phoneNumber": "0731285345"
     },
     {
-      "id": "IE122EIEIE0333",
+      "id": "EDF29214",
       "name": "Leona",
       "sex": "female",
       "breed": "amstaff",

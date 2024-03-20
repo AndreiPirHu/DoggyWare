@@ -82,7 +82,7 @@
           Cancel
         </button>
         <button
-          (click)="handleConfirmationModalSign()"
+          (click)="handleConfirmationModalSign(assignedEmployees[0])"
           [disabled]="assignedEmployees.length == 0"
           [class]="
             'rounded-md p-2 text-white hover:opacity-75 disabled:bg-gray-500 ' +

@@ -24,7 +24,8 @@ export class ConfirmationModalComponent implements OnInit {
     owner: '',
     phoneNumber: '',
   };
-  @Input() handleConfirmationModalSign: () => void = () => {};
+  @Input() handleConfirmationModalSign: (employeeSigning: Employee) => void =
+    () => {};
   @Input() handleConfirmationModalDeactivation: () => void = () => {};
 
   assignedEmployees: Employee[] = [];

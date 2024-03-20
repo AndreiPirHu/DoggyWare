@@ -24,40 +24,93 @@
       <h2 class="text-xl font-medium pb-2">Total</h2>
       <h3 class="text-5xl font-bold">{{ dogs.length }}</h3>
     </div>
-    <!--History-->
-    <div class="col-span-full bg-white rounded-md shadow-sm p-4">
-      <h1 class="border-b text-xl font-medium">Latest changes</h1>
-      <div></div>
+
+    <!--Changelog-->
+    <div class="col-span-full bg-white rounded-md shadow-sm">
+      <!--Title-->
+      <h1 class="border-b text-xl font-medium p-4">Latest changes</h1>
+      <!--Changelog cards container-->
+      <div
+        [class]="
+          'h-32 border p-2 mx-4 mt-4 overflow-auto transition-all duration-300 ' +
+          (changeLogExpanded ? 'h-72' : '')
+        "
+      >
+        <ul>
+          <!--Changelog card-->
+          <li *ngFor="let changelog of changelogs">
+            <div
+              [class]="
+                'grid mb-3 ' + (changelog.wasCheckedIn ? '' : 'justify-end ')
+              "
+            >
+              <div
+                [class]="
+                  'rounded-full text-white px-3 py-1 w-fit ' +
+                  (changelog.wasCheckedIn ? 'bg-green-500' : 'bg-red-500 ')
+                "
+              >
+                <h2>{{ changelog.description }}</h2>
+              </div>
+              <h2
+                [class]="
+                  'text-xs px-3 pt-1 ' +
+                  (changelog.wasCheckedIn ? '' : 'text-end')
+                "
+              >
+                {{ changelog.date }}
+              </h2>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="flex justify-center mb-2">
+        <button (click)="handleChangeLogExpandedToggle()">
+          <img
+            src="assets/icons/expand-down-icon.svg"
+            alt=""
+            [class]="'h-8 ' + (changeLogExpanded ? 'rotate-180 mt-2' : '')"
+          />
+        </button>
+      </div>
     </div>
+
     <!-- Check in list-->
     <div class="col-span-full bg-white rounded-md shadow-sm">
-      <div class="flex p-4 border-b items-center">
-        <h2 class="text-xl font-medium">Check in - out</h2>
-        <div class="relative">
-          <input
-            type="text"
-            placeholder="Search"
-            [(ngModel)]="searchInput"
-            (ngModelChange)="handleSearchFilter()"
-            class="ml-4 bg-slate-100 p-1 rounded-md pl-7"
-          />
-          <img
-            src="assets/icons/search-icon.svg"
-            alt="Magnifying glass icon"
-            class="h-4 pl-3 absolute top-2 left-2"
-          />
-          <div *ngIf="searchInput">
-            <button
-              (click)="handleClearSearch()"
-              class="absolute top-1 right-1"
-            >
-              <img
-                src="assets/icons/close-icon.svg"
-                alt="Closing icon"
-                class="h-6"
-              />
-            </button>
+      <!--Title Container-->
+      <div class="flex p-4 border-b items-center max-sm:grid max-sm:gap-2">
+        <!--Title-->
+        <h2 class="text-xl font-medium mr-4">Check in/out</h2>
+        <!--Filters container-->
+        <div>
+          <!--Search-->
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Search"
+              [(ngModel)]="searchInput"
+              (ngModelChange)="handleSearchFilter()"
+              class="bg-slate-100 p-1 rounded-md pl-7"
+            />
+            <img
+              src="assets/icons/search-icon.svg"
+              alt="Magnifying glass icon"
+              class="h-4 pl-3 absolute top-2 -left-1"
+            />
+            <div *ngIf="searchInput">
+              <button
+                (click)="handleClearSearch()"
+                class="absolute top-1 right-1"
+              >
+                <img
+                  src="assets/icons/close-icon.svg"
+                  alt="Closing icon"
+                  class="h-6"
+                />
+              </button>
+            </div>
           </div>
+          <!--sort-->
         </div>
       </div>
 

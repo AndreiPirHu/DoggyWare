@@ -6,7 +6,6 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
 import { FormsModule } from '@angular/forms';
 import { Employee } from '../../data/employee.model';
 import { Changelog } from '../../data/changelog.model';
-import { stat } from 'fs';
 
 @Component({
   selector: 'app-attendance',
@@ -18,13 +17,17 @@ import { stat } from 'fs';
 export class AttendanceComponent implements OnInit {
   dogs: Dog[] = [];
   dogsList: Dog[] = [];
+  dogsListFilter: string = 'all';
+  dogsListSorting: string = '';
   dogsIn: number = 0;
   dogsOut: number = 0;
+
   changelogs: Changelog[] = [];
 
   searchInput: string = '';
 
   changeLogExpanded: boolean = false;
+  sortingDropdownExpanded: boolean = false;
 
   confirmationActive: boolean = false;
   dogToConfirm: Dog = {
@@ -89,10 +92,6 @@ export class AttendanceComponent implements OnInit {
     }
   };
 
-  handleListSorting = () => {
-    this.dogsList = this.dogsList.sort();
-  };
-
   handleClearSearch = () => {
     this.searchInput = '';
     this.handleSearchFilter();
@@ -100,5 +99,45 @@ export class AttendanceComponent implements OnInit {
 
   handleChangeLogExpandedToggle = () => {
     this.changeLogExpanded = !this.changeLogExpanded;
+  };
+
+  handleDogListFilter = (filter: string) => {
+    this.dogsListFilter = filter;
+    if (filter == 'in') {
+      this.dogsList = this.dogs.filter((dog) => dog.present == true);
+    } else if (filter == 'out') {
+      this.dogsList = this.dogs.filter((dog) => dog.present == false);
+    } else {
+      this.dogsList = this.dogs;
+    }
+    //has to re-sort
+    this.handleListSorting(this.dogsListSorting);
+  };
+
+  handleListSorting = (sorting: string) => {
+    setTimeout(() => {
+      this.sortingDropdownExpanded = false;
+    }, 200);
+
+    this.dogsListSorting = sorting;
+
+    let sortedDogsList = [...this.dogsList];
+
+    if (sorting == 'Name') {
+      sortedDogsList.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sorting == 'Age') {
+      sortedDogsList.sort((a, b) => a.age - b.age);
+    } else if (sorting == 'Breed') {
+      sortedDogsList.sort((a, b) => a.breed.localeCompare(b.breed));
+    } else if (sorting == '') {
+      //has to re-filter when resetting to original
+      sortedDogsList = [...this.dogs];
+      if (this.dogsListFilter == 'in') {
+        sortedDogsList = sortedDogsList.filter((dog) => dog.present == true);
+      } else if (this.dogsListFilter == 'out') {
+        sortedDogsList = sortedDogsList.filter((dog) => dog.present == false);
+      }
+    }
+    this.dogsList = sortedDogsList;
   };
 }

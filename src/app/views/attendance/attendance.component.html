@@ -12,16 +12,34 @@
   <div class="grid grid-cols-6 gap-4 p-5">
     <h1 class="text-2xl font-normal col-span-full">Attendance</h1>
     <!-- Overview-->
-    <div class="col-span-2 bg-white rounded-md shadow-sm p-4">
+    <div
+      [class]="
+        'col-span-2 bg-white rounded-md shadow-sm cursor-pointer border-8  p-2 ' +
+        (dogsListFilter == 'in' ? '' : 'border-white')
+      "
+      (click)="handleDogListFilter('in')"
+    >
       <h2 class="text-xl font-medium pb-2">In</h2>
       <h3 class="text-5xl font-bold text-green-500">{{ dogsIn }}</h3>
     </div>
-    <div class="col-span-2 bg-white rounded-md shadow-sm p-4">
+    <div
+      [class]="
+        'col-span-2 bg-white rounded-md shadow-sm cursor-pointer border-8  p-2 ' +
+        (dogsListFilter == 'out' ? '' : 'border-white')
+      "
+      (click)="handleDogListFilter('out')"
+    >
       <h2 class="text-xl font-medium pb-2">Out</h2>
       <h3 class="text-5xl font-bold text-red-500">{{ dogsOut }}</h3>
     </div>
-    <div class="col-span-2 bg-white rounded-md shadow-sm p-4">
-      <h2 class="text-xl font-medium pb-2">Total</h2>
+    <div
+      [class]="
+        'col-span-2 bg-white rounded-md shadow-sm cursor-pointer border-8 p-2 ' +
+        (dogsListFilter == 'all' ? '' : 'border-white')
+      "
+      (click)="handleDogListFilter('all')"
+    >
+      <h2 class="text-xl font-medium pb-2">All</h2>
       <h3 class="text-5xl font-bold">{{ dogs.length }}</h3>
     </div>
 
@@ -78,11 +96,11 @@
     <!-- Check in list-->
     <div class="col-span-full bg-white rounded-md shadow-sm">
       <!--Title Container-->
-      <div class="flex p-4 border-b items-center max-sm:grid max-sm:gap-2">
+      <div class="flex p-4 border-b items-center max-md:grid max-md:gap-2">
         <!--Title-->
-        <h2 class="text-xl font-medium mr-4">Check in/out</h2>
+        <h2 class="text-xl font-medium mr-4 whitespace-nowrap">Check in/out</h2>
         <!--Filters container-->
-        <div>
+        <div class="flex justify-between w-full">
           <!--Search-->
           <div class="relative">
             <input
@@ -111,6 +129,45 @@
             </div>
           </div>
           <!--sort-->
+          <div class="relative px-2">
+            <button
+              class="flex items-center"
+              (click)="sortingDropdownExpanded = !sortingDropdownExpanded"
+              (blur)="handleListSorting(dogsListSorting)"
+            >
+              <h2 class="font-bold whitespace-nowrap">Sort by:</h2>
+              <div class="flex items-center">
+                <h2 class="font-medium px-2">{{ dogsListSorting }}</h2>
+                <img
+                  src="assets/icons/expand-down-icon.svg"
+                  alt=""
+                  [class]="
+                    'h-4 ' + (sortingDropdownExpanded ? 'rotate-180 mt-2' : '')
+                  "
+                />
+              </div>
+            </button>
+            <!--Sorting dropdown-->
+            <div
+              [class]="
+                'absolute bg-white w-[150px] right-0 shadow-md p-2 font-thin z-50 grid gap-2 ' +
+                (sortingDropdownExpanded ? '' : 'hidden')
+              "
+            >
+              <h3 (click)="handleListSorting('Name')" class="cursor-pointer">
+                Name
+              </h3>
+              <h3 (click)="handleListSorting('Age')" class="cursor-pointer">
+                Age
+              </h3>
+              <h3 (click)="handleListSorting('Breed')" class="cursor-pointer">
+                Breed
+              </h3>
+              <h3 (click)="handleListSorting('')" class="cursor-pointer">
+                None
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -137,7 +194,7 @@
                 />
                 <div class="pl-3">
                   <div class="flex items-center">
-                    <h2>{{ dog.name }}</h2>
+                    <h2 class="font-medium">{{ dog.name }}</h2>
                     <span
                       [class]="
                         ' block size-3 rounded-full ml-2 ' +
@@ -146,7 +203,7 @@
                     ></span>
                   </div>
 
-                  <h2 class="">{{ dog.breed }}</h2>
+                  <h2 class="font-thin">{{ dog.breed }}</h2>
                 </div>
               </div>
 

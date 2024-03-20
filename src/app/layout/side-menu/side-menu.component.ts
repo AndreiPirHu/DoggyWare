@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../data/data.service';
 import { Dog } from '../../data/dog.model';
 import { StateService } from '../../state/state.service';

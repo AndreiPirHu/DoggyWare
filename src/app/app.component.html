@@ -1,7 +1,9 @@
-<div class="flex text-gray-700">
-  <app-side-menu class="w-[30vw] max-w-[350px]" />
+<div class="md:flex text-gray-700">
+  <div class="max-md:h-20 md:w-[30vw] md:max-w-[350px]">
+    <app-side-menu />
+  </div>
 
-  <div class="flex-1">
+  <div class="md:flex-1">
     <div class="h-20"><app-search-bar /></div>
 
     <div><router-outlet class="bg-[#f4f5f7]" /></div>

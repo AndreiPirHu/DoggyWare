@@ -1,4 +1,4 @@
-<div class="fixed top-0 w-full shadow-sm bg-white grid z-50">
+<div class="fixed top-0 w-full shadow-sm bg-white grid z-50 max-md:top-20">
   <div class="relative flex ml-5 h-20 items-center">
     <input
       type="text"
@@ -18,7 +18,7 @@
     <div
       id="results-container"
       [class]="
-        'bg-white max-h-[600px] w-full max-w-[400px] overflow-auto absolute top-16 border' +
+        'bg-white max-h-[600px] w-full max-w-[400px] overflow-auto absolute top-16 border z-[51]' +
         (searchResults.length ? '' : 'hidden')
       "
     >

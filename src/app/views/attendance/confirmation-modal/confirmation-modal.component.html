@@ -2,7 +2,7 @@
   class="fixed w-[70vw] h-screen flex items-center justify-center z-50 max-md:w-[100vw]"
 >
   <div
-    class="bg-white shadow-lg rounded-md mb-[30%] border w-[500px] max-sm:w-[350px]"
+    class="bg-white shadow-lg rounded-md mb-[30%] border w-[500px] max-sm:w-[350px] max-md:mb-[50%]"
   >
     <!--Title-->
     <h1 class="text-xl font-semibold px-5 py-3 border-b">
@@ -17,11 +17,8 @@
         <h2 class="font-bold pl-1">{{ dogToConfirm.name }}</h2>
       </div>
 
-      <h2
-        *ngIf="assignedEmployees.length == 0"
-        class="font-medium my-4 underline underline-offset-2"
-      >
-        Please assign an employee
+      <h2 class="font-medium my-4 underline underline-offset-2">
+        Please assign yourself from the list below
       </h2>
       <!--Assigned list-->
       <h3 class="mt-5 text-xl font-bold">Assigned:</h3>
@@ -50,7 +47,7 @@
         <!--Unassigned list-->
       </ul>
       <h3 class="mt-5 text-xl font-bold">Unassigned:</h3>
-      <ul class="max-h-[200px] overflow-auto">
+      <ul class="max-h-[200px] overflow-auto max-md:max-h-[150px]">
         <li *ngFor="let employee of unassignedEmployees">
           <div
             class="flex items-center justify-between w-full px-3 py-1 cursor-pointer border-b hover:bg-slate-200"

@@ -12,93 +12,85 @@ import {
   query,
   serverTimestamp,
   setDoc,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 import { Dog } from './dog.model';
 import { Employee } from './employee.model';
+import { Changelog } from './changelog.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   firestore: Firestore = inject(Firestore);
-  constructor(private http: HttpClient) {}
 
-  getDataFromFirebase = (): {
-    dogs: Observable<any>;
-    employees: Observable<any>;
-    changelogs: Observable<any>;
-  } => {
-    const dogData = collection(this.firestore, 'dogs');
-    const employeeData = collection(this.firestore, 'employees');
-    const changelogData = query(
-      collection(this.firestore, 'changelog'),
-      orderBy('timestamp', 'desc')
+  getDataFromFirebase = async (): Promise<{
+    dogData: Dog[];
+    employeeData: Employee[];
+    changelogData: Changelog[];
+  }> => {
+    let dogData: any = null;
+    let employeeData: any = null;
+    let changelogData: any = null;
+    const dogDoc = await getDoc(doc(this.firestore, 'DoggyDaycare', 'dogs'));
+    const employeeDoc = await getDoc(
+      doc(this.firestore, 'DoggyDaycare', 'employees')
+    );
+    const changelogDoc = await getDoc(
+      doc(this.firestore, 'DoggyDaycare', 'changelogs')
     );
 
+    if (dogDoc.exists()) {
+      const docData = dogDoc.data();
+      dogData = docData['dogs'];
+    }
+    if (employeeDoc.exists()) {
+      const docData = employeeDoc.data();
+      employeeData = docData['employees'];
+    }
+    if (changelogDoc.exists()) {
+      const docData = changelogDoc.data();
+      changelogData = docData['changelogs'];
+    }
     return {
-      dogs: collectionData(dogData),
-      employees: collectionData(employeeData),
-      changelogs: collectionData(changelogData),
+      dogData: dogData,
+      employeeData: employeeData,
+      changelogData: changelogData,
     };
-  };
-
-  //old
-  getDataFromDB = () => {
-    return this.http.get('assets/db.json');
   };
 
   changeFirebaseDogInfo = async (updatedDogInfo: Dog) => {
-    //do a query search for dog matching the chipnumber
-    const q = query(
-      collection(this.firestore, 'dogs'),
-      where('chipNumber', '==', updatedDogInfo.chipNumber)
-    );
+    let dogs: Dog[] = [];
 
-    //get the docID of the dog that matched it
-    const dogQuery = await getDocs(q);
-    const dogDocumentID = dogQuery.docs[0].id;
+    //get the document
+    const dogDoc = await getDoc(doc(this.firestore, 'DoggyDaycare', 'dogs'));
+    if (dogDoc.exists()) {
+      //translate the data
+      const dogData = dogDoc.data();
 
-    //replace the whole document with the updated dog info
-    await setDoc(doc(this.firestore, 'dogs', dogDocumentID), updatedDogInfo);
+      dogs = dogData['dogs'];
+
+      //find the dog with the change
+      const dogIndex = dogs.findIndex(
+        (dog) => dog.chipNumber == updatedDogInfo.chipNumber
+      );
+
+      //if dog was found, update the information in dog array
+      if (dogIndex !== -1) {
+        dogs[dogIndex] = updatedDogInfo;
+      }
+    }
+
+    //update the array in the document
+    await updateDoc(doc(this.firestore, 'DoggyDaycare', 'dogs'), {
+      dogs: dogs,
+    });
   };
 
-  updateChangelogFirebase = async (updatedDogInfo: Dog, employee: Employee) => {
-    //creating the date format
-    const currentDate = new Date();
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const monthsOfYear = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    const month = currentDate.getMonth();
-    const day = currentDate.getDate();
-    const weekday = currentDate.getDay();
-    const hour = String(currentDate.getHours()).padStart(2, '0');
-    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-    const formattedDate = `${daysOfWeek[weekday]} ${day} ${monthsOfYear[month]} ${hour}:${minutes} `;
-
-    //creating the changelog object to send
-    const newChangelog = {
-      description: `${updatedDogInfo.name} was ${
-        updatedDogInfo.present ? 'checked in' : 'checked out'
-      } by ${employee.name}`,
-      date: formattedDate,
-      wasCheckedIn: updatedDogInfo.present,
-      timestamp: serverTimestamp(),
-    };
-
-    await addDoc(collection(this.firestore, 'changelog'), newChangelog);
+  updateChangelogFirebase = async (updatedChangelog: Changelog[]) => {
+    await updateDoc(doc(this.firestore, 'DoggyDaycare', 'changelogs'), {
+      changelogs: updatedChangelog,
+    });
   };
 }

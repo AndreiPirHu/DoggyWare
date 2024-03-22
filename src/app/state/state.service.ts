@@ -40,6 +40,7 @@ export class StateService {
 
   changePresence(chipNumber: string, employee: Employee) {
     //get the dog index based on chipNumber
+    let changelogs: Changelog[] = this._changelogs.value;
     let updatedDogs = this._dogs.value;
     let dogIndex = updatedDogs.findIndex((dog) => dog.chipNumber == chipNumber);
 
@@ -54,8 +55,46 @@ export class StateService {
       //update firebase dog information
       this.dataService.changeFirebaseDogInfo(updatedDogs[dogIndex]);
 
-      //update firebase changelog
-      this.dataService.updateChangelogFirebase(updatedDogs[dogIndex], employee);
+      //---------update changelog-------------
+
+      //creating the date format
+      const currentDate = new Date();
+      const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const monthsOfYear = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+      const month = currentDate.getMonth();
+      const day = currentDate.getDate();
+      const weekday = currentDate.getDay();
+      const hour = String(currentDate.getHours()).padStart(2, '0');
+      const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+      const formattedDate = `${daysOfWeek[weekday]} ${day} ${monthsOfYear[month]} ${hour}:${minutes} `;
+
+      //creating the changelog object to send
+      const newChangelog = {
+        description: `${updatedDogs[dogIndex].name} was ${
+          updatedDogs[dogIndex].present ? 'checked in' : 'checked out'
+        } by ${employee.name}`,
+        date: formattedDate,
+        wasCheckedIn: updatedDogs[dogIndex].present,
+      };
+
+      //add the new changelog to front of the current one
+      changelogs.unshift(newChangelog);
+
+      //send the updated changelogs to firebase
+      this.dataService.updateChangelogFirebase(changelogs);
     }
   }
 }

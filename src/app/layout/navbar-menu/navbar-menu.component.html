@@ -61,6 +61,7 @@
       src="assets/icons/hamburger-menu-icon.svg"
       alt="Hamburger menu icon"
       class="h-8 cursor-pointer"
+      (click)="handleSideMenuChildToggle()"
     />
     <div class="flex items-center">
       <img src="assets/icons/logo-icon.svg" alt="" class="h-8" />
@@ -78,6 +79,7 @@
       (click)="handleSearchBarToggle()"
     />
   </div>
+  <app-mobile-side-menu />
   <div *ngIf="searchBarIsActive">
     <app-search-bar />
   </div>

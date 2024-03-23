@@ -5,15 +5,20 @@ import { StateService } from '../../state/state.service';
 import { RouterModule } from '@angular/router';
 import { Employee } from '../../data/employee.model';
 import { Changelog } from '../../data/changelog.model';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-side-menu',
+  selector: 'app-navbar-menu',
   standalone: true,
-  imports: [RouterModule],
-  templateUrl: './side-menu.component.html',
-  styleUrl: './side-menu.component.css',
+  imports: [RouterModule, SearchBarComponent, CommonModule],
+  templateUrl: './navbar-menu.component.html',
+  styleUrl: './navbar-menu.component.css',
 })
-export class SideMenuComponent implements OnInit {
+export class NavbarMenuComponent implements OnInit {
+  searchBarIsActive: boolean = false;
+  mobileSideMenuIsActive: boolean = false;
+
   constructor(
     private dataService: DataService,
     private stateService: StateService
@@ -30,4 +35,8 @@ export class SideMenuComponent implements OnInit {
       this.stateService.setChangelogs(data.changelogData);
     }
   }
+
+  handleSearchBarToggle = () => {
+    this.searchBarIsActive = !this.searchBarIsActive;
+  };
 }

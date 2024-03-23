@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SideMenuComponent } from './layout/side-menu/side-menu.component';
+import { NavbarMenuComponent } from './layout/navbar-menu/navbar-menu.component';
 import { SearchBarComponent } from './layout/search-bar/search-bar.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SideMenuComponent, SearchBarComponent],
+  imports: [RouterOutlet, NavbarMenuComponent, SearchBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

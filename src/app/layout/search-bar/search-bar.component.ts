@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  input,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Dog } from '../../data/dog.model';
 import { StateService } from '../../state/state.service';
@@ -12,10 +21,13 @@ import { Router } from '@angular/router';
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css',
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, AfterViewChecked, OnDestroy {
   dogs: Dog[] = [];
   searchInput: string = '';
   searchResults: Dog[] = [];
+  inputFieldFocused = false;
+
+  @ViewChild('inputField') inputField: ElementRef | undefined;
 
   constructor(private stateService: StateService, private router: Router) {}
 
@@ -23,6 +35,19 @@ export class SearchBarComponent implements OnInit {
     this.stateService.dogs$.subscribe((dogs: Dog[]) => {
       this.dogs = dogs;
     });
+  }
+
+  ngAfterViewChecked() {
+    if (this.inputField && !this.inputFieldFocused) {
+      this.inputField.nativeElement.focus();
+      this.inputFieldFocused = true;
+    }
+  }
+
+  ngOnDestroy() {
+    // Reset the boolean when the component is destroyed with ngif in sidemenu
+
+    this.inputFieldFocused = false;
   }
 
   dogSearch = () => {
@@ -38,11 +63,15 @@ export class SearchBarComponent implements OnInit {
     console.log(this.searchResults);
   };
 
-  clearSearch = () => {
+  clearSearchResults = () => {
     //timeout so blur clear effect is not instant when trying to navigate
     setTimeout(() => {
       this.searchResults = [];
     }, 200);
+  };
+
+  handleClearSearch = () => {
+    this.searchInput = '';
   };
 
   handleResultClick = (dogName: string, dogChip: string) => {

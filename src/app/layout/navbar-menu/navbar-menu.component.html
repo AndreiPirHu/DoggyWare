@@ -6,9 +6,9 @@
       <img
         src="assets/icons/logo-icon.svg"
         alt="Logo of a dog paw"
-        class="h-10"
+        class="h-9"
       />
-      <h1 class="text-3xl font-extrabold pl-3">DoggyWare</h1>
+      <h1 class="text-3xl font-extrabold pl-2">DoggyWare</h1>
     </a>
   </div>
 
@@ -53,7 +53,32 @@
     </ul>
   </div>
 </div>
+
 <!--Mobile Navbar-->
-<div class="fixed bg-[#7FA09A] h-20 w-screen z-50 md:hidden">
-  <h1>hello</h1>
+<div class="fixed bg-[#7FA09A] h-16 w-screen z-50 md:hidden">
+  <div class="flex items-center justify-between h-full px-4">
+    <img
+      src="assets/icons/hamburger-menu-icon.svg"
+      alt="Hamburger menu icon"
+      class="h-8 cursor-pointer"
+    />
+    <div class="flex items-center">
+      <img src="assets/icons/logo-icon.svg" alt="" class="h-8" />
+      <h1 class="text-2xl font-extrabold pl-1 text-white">DoggyWare</h1>
+    </div>
+
+    <img
+      [src]="
+        searchBarIsActive
+          ? ' assets/icons/close-icon-light.svg'
+          : 'assets/icons/search-icon-light.svg'
+      "
+      alt=""
+      [class]="'cursor-pointer h-6 ' + (searchBarIsActive ? 'scale-150' : '')"
+      (click)="handleSearchBarToggle()"
+    />
+  </div>
+  <div *ngIf="searchBarIsActive">
+    <app-search-bar />
+  </div>
 </div>

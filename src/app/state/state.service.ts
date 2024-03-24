@@ -37,6 +37,14 @@ export class StateService {
   }
 
   //functions to manipulate the data and make changes
+  /*
+  addDog = (newDog: Dog) => {
+    let updatedDogs: Dog[] = this._dogs.value;
+
+    updatedDogs.unshift(newDog);
+
+    this._dogs.next(updatedDogs);
+  };*/
 
   changePresence(chipNumber: string, employee: Employee) {
     //get the dog index based on chipNumber

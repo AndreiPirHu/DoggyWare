@@ -93,4 +93,14 @@ export class DataService {
       changelogs: updatedChangelog,
     });
   };
+
+  addNewDogFirebase = async (currentDogs: Dog[], newDog: Dog) => {
+    let updatedDogs: Dog[] = currentDogs;
+
+    updatedDogs.unshift(newDog);
+    console.log(updatedDogs);
+    await updateDoc(doc(this.firestore, 'DoggyDaycare', 'dogs'), {
+      dogs: updatedDogs,
+    });
+  };
 }

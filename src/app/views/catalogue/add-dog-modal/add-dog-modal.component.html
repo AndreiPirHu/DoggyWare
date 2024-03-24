@@ -75,33 +75,33 @@
           [(ngModel)]="newDog.phoneNumber"
           [ngModelOptions]="{ standalone: true }"
         />
-        <div class="flex justify-between mt-4">
-          <button
-            type="button"
-            class="bg-white rounded-md p-2 border border-gray-500 hover:bg-black hover:text-white"
-            (click)="handleAddDogModalToggle()"
-          >
-            Cancel
-          </button>
-          <button
-            [disabled]="
-              !newDog.name ||
-              !newDog.breed ||
-              !newDog.chipNumber ||
-              !newDog.img ||
-              !newDog.owner ||
-              !newDog.phoneNumber
-            "
-            type="submit"
-            class="rounded-md p-2 border bg-green-500 text-white hover:opacity-75 disabled:bg-gray-500"
-            (click)="handleAddNewDog()"
-          >
-            Add
-          </button>
-        </div>
       </form>
 
       <!--buttons-->
+    </div>
+    <div class="flex justify-between px-5 pb-5 pt-2">
+      <button
+        type="button"
+        class="bg-white rounded-md p-2 border border-gray-500 hover:bg-black hover:text-white"
+        (click)="handleAddDogModalToggle()"
+      >
+        Cancel
+      </button>
+      <button
+        [disabled]="
+          !newDog.name ||
+          !newDog.breed ||
+          !newDog.chipNumber ||
+          !newDog.img ||
+          !newDog.owner ||
+          !newDog.phoneNumber
+        "
+        type="submit"
+        class="rounded-md p-2 border bg-green-500 text-white hover:opacity-75 disabled:bg-gray-500"
+        (click)="handleAddNewDog()"
+      >
+        Add
+      </button>
     </div>
   </div>
 </div>

@@ -43,10 +43,11 @@ export class CatalogueComponent implements OnInit {
   };
 
   handleSearchFilter = () => {
-    if (!this.searchInput) {
+    if (this.searchInput.length < 3) {
       this.dogsList = this.dogs;
+      this.handleListSorting(this.dogsListSorting);
     } else {
-      this.dogsList = this.dogs.filter((dog) => {
+      this.dogsList = this.dogsList.filter((dog) => {
         return Object.values(dog).some((value) =>
           value
             .toString()

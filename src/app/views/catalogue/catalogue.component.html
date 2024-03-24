@@ -1,104 +1,69 @@
 <div>
-  <!--Confirmation Modal-->
-  <app-confirmation-modal
-    [dogToConfirm]="dogToConfirm"
-    [handleConfirmationModalDeactivation]="handleConfirmationModalDeactivation"
-    [handleConfirmationModalSign]="handleConfirmationModalSign"
+  <!--Modal-->
+  <app-add-dog-modal
+    [handleAddDogModalToggle]="handleAddDogModalToggle"
     [class]="
-      confirmationActive ? 'opacity-100 ' : 'opacity-0  pointer-events-none'
+      addDogModalActive
+        ? 'opacity-100 '
+        : 'opacity-0 pointer-events-none
+       '
     "
   />
-  <!--Container-->
-  <div class="grid grid-cols-6 gap-4 p-5">
-    <h1 class="text-2xl font-normal col-span-full">Attendance</h1>
-    <!-- Overview & attendance filter -->
+
+  <div class="p-5 grid grid-cols-6 gap-4">
+    <!--Title-->
+    <h1 class="text-2xl font-normal col-span-full">Catalogue</h1>
+    <!--Toolbar-->
+
+    <!--In-->
     <div
-      [class]="
-        'col-span-2 bg-white rounded-md shadow-sm cursor-pointer border-8  p-2 hover:border-gray-200 ' +
-        (dogsListFilter == 'in' ? '' : 'border-white')
-      "
-      (click)="handleDogListFilter('in')"
+      class="col-span-3 bg-white rounded-md shadow-sm p-2 flex items-center justify-between"
     >
-      <h2 class="text-xl font-medium pb-2">In</h2>
-      <h3 class="text-5xl font-bold text-green-500">{{ dogsIn }}</h3>
-    </div>
-    <div
-      [class]="
-        'col-span-2 bg-white rounded-md shadow-sm cursor-pointer border-8  p-2 hover:border-gray-200 ' +
-        (dogsListFilter == 'out' ? '' : 'border-white')
-      "
-      (click)="handleDogListFilter('out')"
-    >
-      <h2 class="text-xl font-medium pb-2">Out</h2>
-      <h3 class="text-5xl font-bold text-red-500">{{ dogsOut }}</h3>
-    </div>
-    <div
-      [class]="
-        'col-span-2 bg-white rounded-md shadow-sm cursor-pointer border-8 p-2 hover:border-gray-200 ' +
-        (dogsListFilter == 'all' ? '' : 'border-white')
-      "
-      (click)="handleDogListFilter('all')"
-    >
-      <h2 class="text-xl font-medium pb-2">All</h2>
-      <h3 class="text-5xl font-bold">{{ dogs.length }}</h3>
+      <h2 class="text-xl font-medium pl-2">In</h2>
+      <h3 class="text-2xl font-bold p-2 shadow-md rounded-md text-green-500">
+        {{ dogsIn }}
+      </h3>
     </div>
 
-    <!--Changelog-->
-    <div class="col-span-full bg-white rounded-md shadow-sm">
-      <!--Title-->
-      <h1 class="border-b text-xl font-medium p-4">Latest changes</h1>
-      <!--Changelog cards container-->
-      <div
-        [class]="
-          'h-32  p-2  mt-4 overflow-auto transition-all duration-300 ' +
-          (changeLogExpanded ? 'h-72' : '')
-        "
+    <!--Add dog-->
+    <div
+      class="relative col-span-3 row-span-3 bg-white rounded-md shadow-sm cursor-pointer p-4 hover:bg-slate-200"
+    >
+      <div class="flex justify-center items-center h-full">
+        <img src="assets/icons/new-dog-icon.svg" alt="" class="size-[50%]" />
+      </div>
+      <h2
+        class="font-semibold text-xl absolute bottom-5 w-[calc(100%-2rem)] text-center"
       >
-        <ul>
-          <!--Changelog card-->
-          <li *ngFor="let changelog of changelogs">
-            <div
-              [class]="
-                'grid mb-3 ' + (changelog.wasCheckedIn ? '' : 'justify-end ')
-              "
-            >
-              <div
-                [class]="
-                  'rounded-full text-white px-3 py-1 w-fit ' +
-                  (changelog.wasCheckedIn ? 'bg-green-500' : 'bg-red-500 ')
-                "
-              >
-                <h2>{{ changelog.description }}</h2>
-              </div>
-              <h2
-                [class]="
-                  'text-xs px-3 pt-1 ' +
-                  (changelog.wasCheckedIn ? '' : 'text-end')
-                "
-              >
-                {{ changelog.date }}
-              </h2>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="flex justify-center mb-2">
-        <button (click)="handleChangeLogExpandedToggle()">
-          <img
-            src="assets/icons/expand-down-icon.svg"
-            alt=""
-            [class]="'h-8 ' + (changeLogExpanded ? 'rotate-180 mt-2' : '')"
-          />
-        </button>
-      </div>
+        Add Dog
+      </h2>
     </div>
 
-    <!-- Check in list-->
+    <!--Out-->
+    <div
+      class="col-span-3 bg-white rounded-md shadow-sm p-2 flex items-center justify-between"
+    >
+      <h2 class="text-xl font-medium pl-2">Out</h2>
+      <h3 class="text-2xl font-bold p-2 shadow-md rounded-md text-red-500">
+        {{ dogsOut }}
+      </h3>
+    </div>
+
+    <!--Total-->
+    <div
+      class="col-span-3 bg-white rounded-md shadow-sm p-2 flex items-center justify-between"
+    >
+      <h2 class="text-xl font-medium pl-2">Total</h2>
+      <h3 class="text-2xl font-bold p-2 shadow-md rounded-md">
+        {{ dogs.length }}
+      </h3>
+    </div>
+
+    <!-- Dogs list-->
     <div class="col-span-full bg-white rounded-md shadow-sm">
-      <!--Title Container-->
       <div class="flex p-4 border-b items-center max-md:grid max-md:gap-2">
         <!--Title-->
-        <h2 class="text-xl font-medium mr-4 whitespace-nowrap">Check in/out</h2>
+        <h2 class="text-xl font-medium mr-4 whitespace-nowrap">Dogs</h2>
         <!--Filters container-->
         <div class="flex justify-between w-full">
           <!--Search-->
@@ -174,17 +139,15 @@
       <div class="p-4">
         <ul>
           <!--Dog Card-->
+
           <li
             id="dog-card"
             *ngFor="let dog of dogsList"
-            [class]="
-              'flex border-b hover:opacity-75 text-white ' +
-              (dog.present ? 'bg-green-500' : 'bg-red-500')
-            "
+            class="flex border-b hover:bg-slate-100"
           >
             <div
               class="flex items-center justify-between w-full px-3 py-1 cursor-pointer"
-              (click)="handleConfirmationModalActivation(dog)"
+              (click)="handleDogPageNavigation(dog.chipNumber)"
             >
               <div class="flex items-center">
                 <img

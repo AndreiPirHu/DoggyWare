@@ -1,0 +1,42 @@
+<div
+  class="fixed w-[70vw] h-screen bg-[rgba(0,0,0,.3)] flex items-center justify-center z-[49] max-md:w-[100vw]"
+>
+  <div
+    class="bg-white shadow-lg rounded-md mb-[30%] border w-[500px] max-sm:w-[350px] max-md:mb-[50%]"
+  >
+    <!--Title-->
+    <h1 class="text-xl font-semibold px-5 py-3 border-b">Add New Dog</h1>
+    <!--Content-->
+    <div class="p-5">
+      <form action="" class="grid gap-1">
+        <input type="text" placeholder="Name" class="p-2 bg-slate-100" />
+        <input type="text" placeholder="Breed" class="p-2 bg-slate-100" />
+        <input type="number" placeholder="Age" class="p-2 bg-slate-100" />
+        <input type="text" placeholder="Sex" class="p-2 bg-slate-100" />
+        <input type="text" placeholder="Chip Number" class="p-2 bg-slate-100" />
+        <input type="text" placeholder="Image Url" class="p-2 bg-slate-100" />
+        <input type="text" placeholder="Owner" class="p-2 bg-slate-100" />
+        <input
+          type="text"
+          placeholder="Phone Number"
+          class="p-2 bg-slate-100"
+        />
+      </form>
+
+      <!--buttons-->
+      <div class="flex justify-between mt-4">
+        <button
+          class="bg-white rounded-md p-2 border border-gray-500 hover:bg-black hover:text-white"
+        >
+          Cancel
+        </button>
+        <button
+          [disabled]=""
+          class="rounded-md p-2 border border-black hover:opacity-75 disabled:bg-gray-500"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

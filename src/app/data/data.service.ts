@@ -60,6 +60,7 @@ export class DataService {
     };
   };
 
+  //update dog info
   changeFirebaseDogInfo = async (updatedDogInfo: Dog) => {
     let dogs: Dog[] = [];
 
@@ -99,6 +100,12 @@ export class DataService {
 
     updatedDogs.unshift(newDog);
     console.log(updatedDogs);
+    await updateDoc(doc(this.firestore, 'DoggyDaycare', 'dogs'), {
+      dogs: updatedDogs,
+    });
+  };
+
+  removeDogFirebase = async (updatedDogs: Dog[]) => {
     await updateDoc(doc(this.firestore, 'DoggyDaycare', 'dogs'), {
       dogs: updatedDogs,
     });

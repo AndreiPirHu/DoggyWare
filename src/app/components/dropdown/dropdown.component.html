@@ -1,7 +1,7 @@
 <!--sort-->
 <div
-  class="relative h-10 bg-slate-100 cursor-pointer"
-  (click)="sortingDropdownExpanded = !sortingDropdownExpanded"
+  [class]="'relative h-10 bg-slate-100 ' + (isDisabled ? '' : 'cursor-pointer')"
+  (click)="!isDisabled && (sortingDropdownExpanded = !sortingDropdownExpanded)"
   (blur)="handleOptionChosen(chosenOption)"
 >
   <div class="flex items-center">

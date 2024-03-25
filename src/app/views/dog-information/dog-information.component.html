@@ -1,4 +1,175 @@
+<app-delete-confirmation-modal
+  *ngIf="dogDeletionModalActive"
+  [handleDeleteConfirmationModalToggle]="handleDeleteConfirmationModalToggle"
+  [dogToDelete]="currentDog"
+  [dogs]="dogs"
+/>
+
 <div class="grid grid-cols-6 gap-4 p-5">
+  <!--Modal-->
+
   <!--Title-->
   <h1 class="text-2xl font-normal col-span-full">Dog Information</h1>
+
+  <!--Mobile Picture-->
+  <div class="col-span-full flex justify-center sm:hidden">
+    <img
+      [src]="currentDog.img"
+      alt="image of dog"
+      class="rounded-md shadow-sm max-h-[300px]"
+    />
+  </div>
+  <!--Dog information-->
+  <div class="col-span-3 bg-white rounded-md shadow-sm max-sm:col-span-full">
+    <div class="flex p-4 border-b justify-between items-center">
+      <input
+        type="text"
+        [(ngModel)]="currentDogToEdit.name"
+        class="text-xl p-2 font-medium mr-4 bg-slate-100 disabled:bg-white w-[70%]"
+        [disabled]="dogEditingDisabled"
+      />
+      <button (click)="handleToggleDogEditMode()" class="min-w-6">
+        <img
+          src="assets/icons/edit-icon.svg"
+          alt=""
+          class="size-6 hover:opacity-75"
+        />
+      </button>
+    </div>
+    <div class="p-4">
+      <h3 class="text-sm font-bold mb-1">Breed</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentDogToEdit.breed"
+        class="p-2 w-full bg-slate-100"
+        [disabled]="dogEditingDisabled"
+      />
+      <h3 class="text-sm font-bold mt-3 mb-1">Age</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentDogToEdit.age"
+        class="p-2 w-full bg-slate-100"
+        [disabled]="dogEditingDisabled"
+      />
+      <h3 class="text-sm font-bold mt-3 mb-1">Gender</h3>
+      <app-dropdown
+        [dropdownOptions]="dropdownOptions"
+        [chosenOption]="chosenOption"
+        (sendChosenOptionEvent)="handleGenderChanged($event)"
+        [isDisabled]="dogEditingDisabled"
+      />
+
+      <h3 class="text-sm font-bold mt-3 mb-1">Chip Number</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentDogToEdit.chipNumber"
+        class="p-2 w-full bg-slate-100"
+        disabled
+      />
+      <h3 class="text-sm font-bold mt-3 mb-1">Image url</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentDogToEdit.img"
+        class="p-2 w-full bg-slate-100"
+        [disabled]="dogEditingDisabled"
+      />
+    </div>
+    <div class="flex justify-between px-4" *ngIf="!dogEditingDisabled">
+      <button
+        class="text-white bg-red-500 rounded-md px-4 py-2 mb-4 hover:opacity-75"
+        (click)="handleDeleteConfirmationModalToggle()"
+      >
+        Delete Dog
+      </button>
+      <button
+        class="text-white bg-black rounded-md px-4 py-2 mb-4 hover:opacity-75 disabled:bg-gray-600 disabled:hover:opacity-100"
+        [disabled]="handleCheckIfEdited()"
+        (click)="handleSaveEditChanges()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+  <!--Picture-->
+  <div class="col-span-3 max-sm:hidden mx-auto">
+    <img
+      [src]="currentDog.img"
+      alt=""
+      class="rounded-md shadow-sm max-h-[530px]"
+    />
+  </div>
+
+  <!--Owner information-->
+  <div class="col-span-full bg-white rounded-md shadow-sm max-sm:col-span-full">
+    <div class="flex p-4 border-b justify-between items-center">
+      <h2>Owner Information</h2>
+      <button (click)="handleToggleOwnerEditMode()" class="min-w-6">
+        <img
+          src="assets/icons/edit-icon.svg"
+          alt=""
+          class="size-6 hover:opacity-75"
+        />
+      </button>
+    </div>
+    <div class="p-4">
+      <h3 class="text-sm font-bold mt-3 mb-1">Name</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentDogToEdit.owner"
+        class="p-2 w-full bg-slate-100"
+        [disabled]="ownerEditingDisabled"
+      />
+      <h3 class="text-sm font-bold mt-3 mb-1">Phone Number</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentDogToEdit.phoneNumber"
+        class="p-2 w-full bg-slate-100"
+        [disabled]="ownerEditingDisabled"
+      />
+      <h3 class="text-sm font-bold mt-3 mb-1">Dogs</h3>
+      <div *ngIf="!ownerEditingDisabled" class="flex justify-center">
+        <button
+          class="text-white bg-black rounded-md px-4 py-2 mb-4 hover:opacity-75 disabled:bg-gray-600 disabled:hover:opacity-100"
+          [disabled]="handleCheckIfEdited()"
+          (click)="handleSaveEditChanges()"
+        >
+          Save
+        </button>
+      </div>
+      <ul>
+        <li
+          *ngFor="let dog of ownerDogs"
+          class="flex border-b hover:bg-slate-100"
+        >
+          <div
+            class="flex items-center justify-between w-full px-3 py-1 cursor-pointer"
+            (click)="handleDogPageNavigation(dog.chipNumber)"
+          >
+            <div class="flex items-center">
+              <img
+                src="assets/icons/dog-icon.svg"
+                alt="icon of a corgi face"
+                class="h-10"
+              />
+              <div class="pl-3">
+                <div class="flex items-center">
+                  <h2 class="font-medium">{{ dog.name }}</h2>
+                  <span
+                    [class]="
+                      ' block size-3 rounded-full ml-2 ' +
+                      (dog.present ? 'bg-green-500 ' : ' bg-red-500 ')
+                    "
+                  ></span>
+                </div>
+
+                <h2 class="font-thin">{{ dog.breed }}</h2>
+              </div>
+            </div>
+
+            <h2 class="">{{ dog.age }} years old</h2>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

@@ -13,7 +13,7 @@
         class="grid gap-1 max-h-[350px] overflow-auto"
         #dogForm="ngForm"
       >
-        <h3 class="text-sm font-semibold">Name</h3>
+        <h3 class="text-sm font-semibold mt-2">Name</h3>
         <input
           type="text"
           class="p-2 bg-slate-100"
@@ -21,7 +21,7 @@
           [ngModelOptions]="{ standalone: true }"
           required
         />
-        <h3 class="text-sm font-semibold">Breed</h3>
+        <h3 class="text-sm font-semibold mt-2">Breed</h3>
         <input
           type="text"
           class="p-2 bg-slate-100"
@@ -29,7 +29,7 @@
           [(ngModel)]="newDog.breed"
           [ngModelOptions]="{ standalone: true }"
         />
-        <h3 class="text-sm font-semibold">Age</h3>
+        <h3 class="text-sm font-semibold mt-2">Age</h3>
         <input
           type="number"
           class="p-2 bg-slate-100"
@@ -37,13 +37,13 @@
           [(ngModel)]="newDog.age"
           [ngModelOptions]="{ standalone: true }"
         />
-        <h3 class="text-sm font-semibold">Sex</h3>
+        <h3 class="text-sm font-semibold mt-2">Gender</h3>
         <app-dropdown
           [dropdownOptions]="dogSexOptions"
           (sendChosenOptionEvent)="handleDogSexChosen($event)"
           [chosenOption]="'male'"
         />
-        <h3 class="text-sm font-semibold">Chip Number</h3>
+        <h3 class="text-sm font-semibold mt-2">Chip Number</h3>
         <input
           type="text"
           class="p-2 bg-slate-100"
@@ -51,7 +51,7 @@
           [(ngModel)]="newDog.chipNumber"
           [ngModelOptions]="{ standalone: true }"
         />
-        <h3 class="text-sm font-semibold">Image Url</h3>
+        <h3 class="text-sm font-semibold mt-2">Image Url</h3>
         <input
           type="text"
           class="p-2 bg-slate-100"
@@ -59,7 +59,7 @@
           [(ngModel)]="newDog.img"
           [ngModelOptions]="{ standalone: true }"
         />
-        <h3 class="text-sm font-semibold">Owner</h3>
+        <h3 class="text-sm font-semibold mt-2">Owner</h3>
         <input
           type="text"
           class="p-2 bg-slate-100"
@@ -67,7 +67,7 @@
           [(ngModel)]="newDog.owner"
           [ngModelOptions]="{ standalone: true }"
         />
-        <h3 class="text-sm font-semibold">Phone Number</h3>
+        <h3 class="text-sm font-semibold mt-2">Phone Number</h3>
         <input
           type="text"
           class="p-2 bg-slate-100"

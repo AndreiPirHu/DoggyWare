@@ -51,6 +51,7 @@ export class AddDogModalComponent {
 
     //send new dog info to firebase
     this.dataService.addNewDogFirebase(currentDogs, this.newDog);
+    this.handleAddDogModalToggle();
   };
 
   handleNewDogInformationFormatting = () => {

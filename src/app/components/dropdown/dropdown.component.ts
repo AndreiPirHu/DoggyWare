@@ -15,6 +15,8 @@ export class DropdownComponent {
 
   @Input() chosenOption: string = '';
 
+  @Input() isDisabled: boolean = false;
+
   @Output() sendChosenOptionEvent = new EventEmitter<any>();
 
   handleOptionChosen = (option: string) => {

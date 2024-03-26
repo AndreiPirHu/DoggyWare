@@ -1,0 +1,57 @@
+<div
+  class="fixed w-[70vw] h-screen bg-[rgba(0,0,0,.3)] flex items-center justify-center z-[49] max-md:w-[100vw]"
+>
+  <div
+    class="bg-white shadow-lg rounded-md mb-[20%] border w-[500px] max-sm:w-[350px]"
+  >
+    <!--Title-->
+    <h1 class="text-xl font-semibold px-5 py-3 border-b">
+      Trainer Information
+    </h1>
+    <!--Content-->
+    <div class="p-5">
+      <form
+        action=""
+        class="grid gap-1 max-h-[350px] overflow-auto"
+        #dogForm="ngForm"
+      >
+        <h3 class="text-sm font-semibold mt-2">Name</h3>
+        <input
+          type="text"
+          class="p-2 bg-slate-100"
+          [(ngModel)]="newTrainer.name"
+          [ngModelOptions]="{ standalone: true }"
+          required
+        />
+
+        <h3 class="text-sm font-semibold mt-2">Phone Number</h3>
+        <input
+          type="text"
+          class="p-2 bg-slate-100"
+          required
+          [(ngModel)]="newTrainer.phoneNumber"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </form>
+
+      <!--buttons-->
+    </div>
+    <div class="flex justify-between px-5 pb-5 pt-2">
+      <button
+        type="button"
+        class="bg-white rounded-md p-2 border border-gray-500 hover:bg-black hover:text-white"
+        (click)="handleAddTrainerModalToggle()"
+      >
+        Cancel
+      </button>
+      <button
+        [disabled]="!newTrainer.name || !newTrainer.phoneNumber"
+        type="submit"
+        class="rounded-md p-2 border bg-green-500 text-white hover:opacity-75 disabled:bg-gray-500"
+        (click)="handleAddNewTrainer()"
+      >
+        Add
+      </button>
+    </div>
+  </div>
+</div>

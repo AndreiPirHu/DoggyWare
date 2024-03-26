@@ -1,20 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import {
-  Firestore,
-  addDoc,
-  collection,
-  collectionData,
-  doc,
-  getDoc,
-  getDocs,
-  orderBy,
-  query,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
-  where,
-} from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, updateDoc } from '@angular/fire/firestore';
 import { Dog } from './dog.model';
 import { Employee } from './employee.model';
 import { Changelog } from './changelog.model';
@@ -108,6 +93,55 @@ export class DataService {
   removeDogFirebase = async (updatedDogs: Dog[]) => {
     await updateDoc(doc(this.firestore, 'DoggyDaycare', 'dogs'), {
       dogs: updatedDogs,
+    });
+  };
+
+  addNewTrainerFirebase = async (
+    currentTrainers: Employee[],
+    newTrainer: Employee
+  ) => {
+    let updatedTrainers: Employee[] = currentTrainers;
+
+    updatedTrainers.unshift(newTrainer);
+    console.log(updatedTrainers);
+    await updateDoc(doc(this.firestore, 'DoggyDaycare', 'employees'), {
+      employees: updatedTrainers,
+    });
+  };
+
+  changeFirebaseTrainerInfo = async (updatedTrainerInfo: Employee) => {
+    let trainers: Employee[] = [];
+
+    //get the document
+    const trainerDoc = await getDoc(
+      doc(this.firestore, 'DoggyDaycare', 'employees')
+    );
+    if (trainerDoc.exists()) {
+      //translate the data
+      const trainerData = trainerDoc.data();
+
+      trainers = trainerData['employees'];
+
+      //find the trainer with the change
+      const trainerIndex = trainers.findIndex(
+        (trainer) => trainer.name == updatedTrainerInfo.name
+      );
+
+      //if trainer was found, update the information in dog array
+      if (trainerIndex !== -1) {
+        trainers[trainerIndex] = updatedTrainerInfo;
+      }
+    }
+
+    //update the array in the document
+    await updateDoc(doc(this.firestore, 'DoggyDaycare', 'employees'), {
+      employees: trainers,
+    });
+  };
+
+  removeTrainerFirebase = async (updatedTrainers: Employee[]) => {
+    await updateDoc(doc(this.firestore, 'DoggyDaycare', 'employees'), {
+      employees: updatedTrainers,
     });
   };
 }

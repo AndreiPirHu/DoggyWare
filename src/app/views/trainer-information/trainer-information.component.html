@@ -1,0 +1,64 @@
+<!--Modal-->
+<app-trainer-delete-confirmation-modal
+  *ngIf="trainerDeletionModalActive"
+  [handleDeleteConfirmationModalToggle]="handleDeleteConfirmationModalToggle"
+  [trainerToDelete]="currentTrainer"
+  [trainers]="trainers"
+/>
+
+<div class="grid grid-cols-6 gap-4 p-5">
+  <!--Title-->
+  <h1 class="text-2xl font-normal col-span-full">Trainer Information</h1>
+
+  <!--Mobile Picture-->
+  <div class="col-span-full flex justify-center">
+    <img
+      src="assets/icons/trainers-icon.svg"
+      alt="image of dog"
+      class="rounded-md shadow-sm bg-white max-h-[300px]"
+    />
+  </div>
+  <!--Trainer information-->
+  <div class="col-span-full bg-white rounded-md shadow-sm">
+    <div class="flex p-4 border-b justify-between items-center">
+      <input
+        type="text"
+        [(ngModel)]="currentTrainerToEdit.name"
+        class="text-xl p-2 font-medium mr-4 bg-slate-100 disabled:bg-white w-[70%]"
+        [disabled]="trainerEditingDisabled"
+      />
+      <button (click)="handleToggleTrainerEditMode()" class="min-w-6">
+        <img
+          src="assets/icons/edit-icon.svg"
+          alt=""
+          class="size-6 hover:opacity-75"
+        />
+      </button>
+    </div>
+    <div class="p-4">
+      <h3 class="text-sm font-bold mb-1">Phone number</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentTrainerToEdit.phoneNumber"
+        class="p-2 w-full bg-slate-100"
+        [disabled]="trainerEditingDisabled"
+      />
+    </div>
+    <div class="flex justify-between px-4" *ngIf="!trainerEditingDisabled">
+      <button
+        class="text-white bg-red-500 rounded-md px-4 py-2 mb-4 hover:opacity-75"
+        (click)="handleDeleteConfirmationModalToggle()"
+      >
+        Delete trainer
+      </button>
+      <button
+        class="text-white bg-black rounded-md px-4 py-2 mb-4 hover:opacity-75 disabled:bg-gray-600 disabled:hover:opacity-100"
+        [disabled]="handleCheckIfEdited()"
+        (click)="handleSaveEditChanges()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+  <!--Picture-->
+</div>

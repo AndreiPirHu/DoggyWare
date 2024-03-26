@@ -1,0 +1,53 @@
+<div
+  class="fixed w-[70vw] h-screen bg-[rgba(0,0,0,.3)] flex items-center justify-center z-[49] max-md:w-[100vw]"
+>
+  <div
+    class="bg-white shadow-lg rounded-md mb-[20%] border w-[500px] max-sm:w-[350px] max-md:mb-[30%]"
+  >
+    <!--Title-->
+    <h1 class="text-xl font-semibold px-5 py-3 border-b">
+      Delete {{ trainerToDelete.name }}
+    </h1>
+    <!--Content-->
+    <div class="p-4">
+      <h2 class="font-medium my-4">
+        Are you sure you want to delete {{ trainerToDelete.name }}?
+      </h2>
+      <!--dog card-->
+      <div id="dog-card" class="flex border-y">
+        <div class="flex items-center justify-between w-full px-3 py-1">
+          <div class="flex items-center">
+            <img
+              src="assets/icons/trainers-icon.svg"
+              alt="icon of a corgi face"
+              class="h-10"
+            />
+            <div class="pl-3">
+              <div class="flex items-center">
+                <h2 class="font-medium">{{ trainerToDelete.name }}</h2>
+              </div>
+
+              <h2 class="font-thin">{{ trainerToDelete.phoneNumber }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Buttons-->
+    <div class="flex justify-between p-4">
+      <button
+        (click)="handleDeleteConfirmationModalToggle()"
+        class="bg-white rounded-md p-2 border border-gray-500 hover:bg-black hover:text-white"
+      >
+        Cancel
+      </button>
+      <button
+        class="rounded-md p-2 text-white hover:opacity-75 bg-red-500"
+        (click)="handleDeleteTrainer()"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

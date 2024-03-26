@@ -28,7 +28,7 @@ export class AddDogModalComponent {
   };
 
   @Input() handleAddDogModalToggle: () => void = () => {};
-
+  @Input() handleSearchFilter: () => void = () => {};
   constructor(
     private stateService: StateService,
     private dataService: DataService
@@ -47,10 +47,11 @@ export class AddDogModalComponent {
     //format the information
     this.handleNewDogInformationFormatting();
 
-    //send new dog info to state
-
     //send new dog info to firebase
     this.dataService.addNewDogFirebase(currentDogs, this.newDog);
+    //refilter list to show new dog even if sorted
+    this.handleSearchFilter();
+    //untoggle modal
     this.handleAddDogModalToggle();
   };
 

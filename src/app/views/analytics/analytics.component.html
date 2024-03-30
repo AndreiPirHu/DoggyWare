@@ -1,4 +1,12 @@
 <div class="grid grid-cols-6 gap-4 p-5">
   <h1 class="text-2xl font-normal col-span-full">Analytics</h1>
-  <div class="col-span-3 bg-white"></div>
+  <div class="col-span-3 bg-white max-sm:col-span-full">
+    <app-gender-analytics [dogs]="dogs" />
+  </div>
+  <div class="col-span-3 bg-white max-sm:col-span-full">
+    <app-age-analytics [dogs]="dogs" />
+  </div>
+  <div class="col-span-full bg-white">
+    <app-breeds-analytics [dogs]="dogs" />
+  </div>
 </div>

@@ -1,0 +1,16 @@
+<div>
+  <div class="flex p-4 border-b items-center max-md:grid max-md:gap-2">
+    <!--Title-->
+    <h2 class="text-xl font-medium mr-4 whitespace-nowrap">Gender</h2>
+  </div>
+  <canvas
+    baseChart
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [type]="barChartType"
+    (chartHover)="chartHovered($event)"
+    (chartClick)="chartClicked($event)"
+    class="mt-5"
+  >
+  </canvas>
+</div>

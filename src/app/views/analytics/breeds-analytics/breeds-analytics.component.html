@@ -1,0 +1,14 @@
+<div>
+  <div class="flex p-4 border-b items-center max-md:grid max-md:gap-2">
+    <!--Title-->
+    <h2 class="text-xl font-medium mr-4 whitespace-nowrap">Breeds</h2>
+  </div>
+  <canvas
+    baseChart
+    [data]="pieChartData"
+    [type]="pieChartType"
+    [options]="pieChartOptions"
+    class="p-10"
+  >
+  </canvas>
+</div>

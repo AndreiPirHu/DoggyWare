@@ -8,8 +8,8 @@ import { TrainerInformationComponent } from './views/trainer-information/trainer
 import { AnalyticsComponent } from './views/analytics/analytics.component';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'attendance', component: AttendanceComponent },
+  //{ path: '', component: DashboardComponent },
+  { path: '', component: AttendanceComponent },
   { path: 'catalogue', component: CatalogueComponent },
   { path: 'catalogue/:dogChipNumber', component: DogInformationComponent },
   { path: 'trainers', component: TrainersComponent },

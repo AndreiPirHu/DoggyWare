@@ -73,9 +73,7 @@ export class SearchBarComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.searchInput = '';
   };
 
-  handleResultClick = (dogName: string, dogChip: string) => {
-    let dogID: string = dogName + dogChip.slice(0, 2);
-
-    this.router.navigate(['/' + dogID]);
+  handleResultClick = (chipNumber: string) => {
+    this.router.navigate(['catalogue/' + chipNumber]);
   };
 }

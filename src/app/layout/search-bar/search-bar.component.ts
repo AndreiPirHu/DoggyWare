@@ -60,7 +60,6 @@ export class SearchBarComponent implements OnInit, AfterViewChecked, OnDestroy {
         value.toString().toLowerCase().includes(this.searchInput.toLowerCase())
       );
     });
-    console.log(this.searchResults);
   };
 
   clearSearchResults = () => {
@@ -76,7 +75,7 @@ export class SearchBarComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   handleResultClick = (dogName: string, dogChip: string) => {
     let dogID: string = dogName + dogChip.slice(0, 2);
-    console.log(dogID);
+
     this.router.navigate(['/' + dogID]);
   };
 }

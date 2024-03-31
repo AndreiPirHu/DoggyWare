@@ -84,7 +84,7 @@ export class DataService {
     let updatedDogs: Dog[] = currentDogs;
 
     updatedDogs.unshift(newDog);
-    console.log(updatedDogs);
+
     await updateDoc(doc(this.firestore, 'DoggyDaycare', 'dogs'), {
       dogs: updatedDogs,
     });
@@ -103,7 +103,6 @@ export class DataService {
     let updatedTrainers: Employee[] = currentTrainers;
 
     updatedTrainers.unshift(newTrainer);
-    console.log(updatedTrainers);
     await updateDoc(doc(this.firestore, 'DoggyDaycare', 'employees'), {
       employees: updatedTrainers,
     });

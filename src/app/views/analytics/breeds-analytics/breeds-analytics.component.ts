@@ -72,9 +72,7 @@ export class BreedsAnalyticsComponent implements OnChanges {
   }: {
     event: ChartEvent;
     active: object[];
-  }): void {
-    console.log(event, active);
-  }
+  }): void {}
 
   public chartHovered({
     event,
@@ -82,9 +80,7 @@ export class BreedsAnalyticsComponent implements OnChanges {
   }: {
     event: ChartEvent;
     active: object[];
-  }): void {
-    console.log(event, active);
-  }
+  }): void {}
 
   // Function to generate random colors
   private getRandomColor(): string {
